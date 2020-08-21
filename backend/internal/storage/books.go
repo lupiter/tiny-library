@@ -2,10 +2,12 @@ package storage
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/lupiter/tiny-library/backend/internal/models"
+	"io/ioutil"
 	"os"
 )
 
@@ -38,6 +40,24 @@ func AddBook(pool *pgxpool.Pool, book models.Book) models.Book {
 	}
 	book.Identifier = id
 	return book
+}
+
+func LoadBooks(pool *pgxpool.Pool) {
+	dataFile := os.Getenv("DATA_BOOKS")
+	if dataFile != "" {
+		data, err := ioutil.ReadFile(dataFile)
+		if err != nil {
+			// TODO
+		}
+		var books []models.Book
+		err = json.Unmarshal(data, &books)
+		if err != nil {
+			// TODO
+		}
+		for _, book := range books {
+			AddBook(pool, book)
+		}
+	}
 }
 
 func scanBook(row pgx.Row) models.Book {

@@ -2,10 +2,12 @@ package storage
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/lupiter/tiny-library/backend/internal/models"
+	"io/ioutil"
 	"os"
 )
 
@@ -36,6 +38,24 @@ func AddLoan(pool *pgxpool.Pool, loan models.Loan) {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Exec failed: %v\n", err)
 		os.Exit(1)
+	}
+}
+
+func LoadLoans(pool *pgxpool.Pool) {
+	dataFile := os.Getenv("DATA_LOANS")
+	if dataFile != "" {
+		data, err := ioutil.ReadFile(dataFile)
+		if err != nil {
+			// TODO
+		}
+		var loans []models.Loan
+		err = json.Unmarshal(data, &loans)
+		if err != nil {
+			// TODO
+		}
+		for _, loan := range loans {
+			AddLoan(pool, loan)
+		}
 	}
 }
 

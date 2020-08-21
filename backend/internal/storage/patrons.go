@@ -2,10 +2,12 @@ package storage
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/lupiter/tiny-library/backend/internal/models"
+	"io/ioutil"
 	"os"
 )
 
@@ -15,6 +17,24 @@ func PatronById(pool *pgxpool.Pool, patronId string) models.Patron {
 	row := pool.QueryRow(context.Background(), "SELECT id, "+patronColumns+" FROM patrons WHERE id=$1;", patronId)
 	patron := scanPatron(row)
 	return patron
+}
+
+func LoadPatrons(pool *pgxpool.Pool) {
+	patronDataFile := os.Getenv("DATA_PATRONS")
+	if patronDataFile != "" {
+		patronData, err := ioutil.ReadFile(patronDataFile)
+		if err != nil {
+			// TODO
+		}
+		var patrons []models.Patron
+		err = json.Unmarshal(patronData, &patrons)
+		if err != nil {
+			// TODO
+		}
+		for _, patron := range patrons {
+			AddPatron(pool, patron)
+		}
+	}
 }
 
 func scanPatron(row pgx.Row) models.Patron {

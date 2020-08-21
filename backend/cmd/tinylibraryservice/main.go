@@ -10,13 +10,17 @@ import (
 )
 
 func main() {
-	conn := storage.Start()
-	defer conn.Close()
-	storage := controllers.Storage{
-		Pool: conn,
+	pool := storage.Start()
+	defer pool.Close()
+	s := controllers.Storage{
+		Pool: pool,
 	}
+	storage.LoadBooks(pool)
+	storage.LoadPatrons(pool)
+	storage.LoadLoans(pool)
+
 	r := mux.NewRouter()
-	storage.AddRoutes(r)
+	s.AddRoutes(r)
 	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
