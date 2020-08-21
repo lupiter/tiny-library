@@ -2,12 +2,13 @@ package controllers
 
 import (
   "github.com/jackc/pgx/v4/pgxpool"
+  "github.com/gorilla/mux"
 )
 
-func (s *Storage) Add() {
-  s.AddBooks("")
-  s.AddPatrons("")
-  s.AddLoans("")
+func (s *Storage) AddRoutes(router *mux.Router) {
+  s.AddBooks(router, "")
+  s.AddPatrons(router, "")
+  s.AddLoans(router, "")
 }
 
 

@@ -4,12 +4,39 @@ import (
     "fmt"
     // "log"
     "net/http"
+    "encoding/json"
+    "github.com/lupiter/tiny-library/backend/internal/storage"
+    "github.com/gorilla/mux"
 )
 
-func (s *Storage) AddLoans(prefix string) {
-    http.HandleFunc(fmt.Sprintf("%s/loans", prefix), s.listLoans)
+func (s *Storage) AddLoans(r *mux.Router, prefix string) {
+    r.HandleFunc(fmt.Sprintf("%s/loans", prefix), s.listLoans)
+    r.HandleFunc(fmt.Sprintf("%s/loans/", prefix), s.listLoans)
+    r.HandleFunc(fmt.Sprintf("%s/loans/{id}", prefix), s.oneLoan)
+}
+
+func (s *Storage) oneLoan(w http.ResponseWriter, r *http.Request) {
+  vars := mux.Vars(r)
+  loanId := vars["id"]
+  loan := storage.LoanById(s.Pool, loanId)
+  js, err := json.Marshal(loan)
+  if err != nil {
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
+  }
+
+  w.Header().Set("Content-Type", "application/json")
+  w.Write(js)
 }
 
 func (s *Storage) listLoans(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+    all := storage.AllLoans(s.Pool)
+    js, err := json.Marshal(all)
+    if err != nil {
+      http.Error(w, err.Error(), http.StatusInternalServerError)
+      return
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+    w.Write(js)
 }

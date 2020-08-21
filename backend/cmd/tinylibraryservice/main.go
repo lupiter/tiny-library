@@ -6,6 +6,7 @@ import (
     "net/http"
     "github.com/lupiter/tiny-library/backend/internal/controllers"
     "github.com/lupiter/tiny-library/backend/internal/storage"
+    "github.com/gorilla/mux"
 )
 
 func main() {
@@ -14,6 +15,8 @@ func main() {
     storage := controllers.Storage{
       Pool: conn,
     }
-    storage.Add()
+    r := mux.NewRouter()
+    storage.AddRoutes(r)
+    http.Handle("/", r)
     log.Fatal(http.ListenAndServe(":8080", nil))
 }
