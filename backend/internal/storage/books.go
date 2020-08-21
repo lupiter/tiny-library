@@ -42,8 +42,7 @@ func AddBook(pool *pgxpool.Pool, book models.Book) models.Book {
 	return book
 }
 
-func LoadBooks(pool *pgxpool.Pool) {
-	dataFile := os.Getenv("DATA_BOOKS")
+func LoadBooks(pool *pgxpool.Pool, dataFile string) {
 	if dataFile != "" {
 		data, err := ioutil.ReadFile(dataFile)
 		if err != nil {

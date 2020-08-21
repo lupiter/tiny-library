@@ -19,15 +19,14 @@ func PatronById(pool *pgxpool.Pool, patronId string) models.Patron {
 	return patron
 }
 
-func LoadPatrons(pool *pgxpool.Pool) {
-	patronDataFile := os.Getenv("DATA_PATRONS")
-	if patronDataFile != "" {
-		patronData, err := ioutil.ReadFile(patronDataFile)
+func LoadPatrons(pool *pgxpool.Pool, dataFile string) {
+	if dataFile != "" {
+		data, err := ioutil.ReadFile(dataFile)
 		if err != nil {
 			// TODO
 		}
 		var patrons []models.Patron
-		err = json.Unmarshal(patronData, &patrons)
+		err = json.Unmarshal(data, &patrons)
 		if err != nil {
 			// TODO
 		}

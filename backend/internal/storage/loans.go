@@ -41,8 +41,7 @@ func AddLoan(pool *pgxpool.Pool, loan models.Loan) {
 	}
 }
 
-func LoadLoans(pool *pgxpool.Pool) {
-	dataFile := os.Getenv("DATA_LOANS")
+func LoadLoans(pool *pgxpool.Pool, dataFile string) {
 	if dataFile != "" {
 		data, err := ioutil.ReadFile(dataFile)
 		if err != nil {

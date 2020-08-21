@@ -1,12 +1,12 @@
 package main
 
 import (
-	// "fmt"
 	"github.com/gorilla/mux"
 	"github.com/lupiter/tiny-library/backend/internal/controllers"
 	"github.com/lupiter/tiny-library/backend/internal/storage"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -15,9 +15,9 @@ func main() {
 	s := controllers.Storage{
 		Pool: pool,
 	}
-	storage.LoadBooks(pool)
-	storage.LoadPatrons(pool)
-	storage.LoadLoans(pool)
+	storage.LoadBooks(pool, os.Getenv("DATA_BOOKS"))
+	storage.LoadPatrons(pool, os.Getenv("DATA_PATRONS"))
+	storage.LoadLoans(pool, os.Getenv("DATA_LOANS"))
 
 	r := mux.NewRouter()
 	s.AddRoutes(r)
