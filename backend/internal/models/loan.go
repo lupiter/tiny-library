@@ -1,7 +1,7 @@
 package models
 
 type Loan struct {
-	Identifier string
+	Identifier int
 	Book       Book
 	Patron     Patron
 	Lent       string

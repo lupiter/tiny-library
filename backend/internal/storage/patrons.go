@@ -37,7 +37,7 @@ func LoadPatrons(pool *pgxpool.Pool, dataFile string) {
 }
 
 func scanPatron(row pgx.Row) models.Patron {
-	var id string
+	var id int
 	var cardNumber string
 	var name string
 	var dob string
@@ -58,11 +58,10 @@ func scanPatron(row pgx.Row) models.Patron {
 }
 
 func AddPatron(pool *pgxpool.Pool, patron models.Patron) models.Patron {
-	var id string
+	var id int
 	err := pool.QueryRow(
 		context.Background(),
 		"INSERT INTO patrons ("+patronColumns+") VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
-		patron.Identifier,
 		patron.CardNumber,
 		patron.Name,
 		patron.DateOfBirth,

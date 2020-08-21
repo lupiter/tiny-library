@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Jane Eyre",
+    "author": "Charlotte Brontë",
+    "ISBN": "978-0141441146",
+    "year": "1847",
+    "publisher": "Penguin Classics",
+    "tags": ["classics", "reprints"],
+    "identifier": "x",
+    "max_loan_days": 21,
+    "location": "Classic Fiction",
+    "format": "Paperback"
+  },
+  {
+    "title": "Wuthering Heights",
+    "author": "Emily Jane Brontë",
+    "ISBN": "0-486-29256-8",
+    "year": "1847",
+    "publisher": "Thomas Cautley Newby",
+    "tags": ["classics", "rare books"],
+    "identifer": "xx",
+    "max_loan_days": 0,
+    "location": "Rare Books Collection",
+    "format": "Hardcover"
+  },
+  {
+    "title": "Agnes Grey",
+    "author": "Anne Brontë",
+    "ISBN": "978014043210",
+    "year": "1850",
+    "publisher": "Pengin Classics",
+    "tags": ["classics", "reprints"],
+    "identifer": "x",
+    "max_loan_days": 21,
+    "location": "Classic Fiction",
+    "format": "Hardcover"
+  }
+]

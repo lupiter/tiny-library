@@ -7,7 +7,7 @@ type Book struct {
 	Year        string
 	Publisher   string
 	Tags        []string
-	Identifier  string
+	Identifier  int
 	MaxLoanDays int
 	Location    string
 	Format      string

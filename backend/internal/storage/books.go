@@ -20,10 +20,10 @@ func BookById(pool *pgxpool.Pool, bookId string) models.Book {
 }
 
 func AddBook(pool *pgxpool.Pool, book models.Book) models.Book {
-	var id string
+	var id int
 	err := pool.QueryRow(
 		context.Background(),
-		"INSERT INTO books ("+bookColumns+") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id;",
+		"INSERT INTO books ("+bookColumns+") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id;",
 		book.Title,
 		book.Author,
 		book.ISBN,
@@ -60,7 +60,7 @@ func LoadBooks(pool *pgxpool.Pool, dataFile string) {
 }
 
 func scanBook(row pgx.Row) models.Book {
-	var id string
+	var id int
 	var title string
 	var author string
 	var isbn string

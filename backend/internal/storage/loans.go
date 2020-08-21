@@ -25,20 +25,21 @@ func LoanById(pool *pgxpool.Pool, loanId string) models.Loan {
 }
 
 func AddLoan(pool *pgxpool.Pool, loan models.Loan) {
-	_, err := pool.Exec(
+	var id int
+	err := pool.QueryRow(
 		context.Background(),
-		"INSERT INTO loans (id, book, patron, lent, due_back, returned) VALUES ($1, $2, $3, $4, $5, $6);",
-		loan.Identifier,
+		"INSERT INTO loans (book, patron, lent, due_back, returned) VALUES ($1, $2, $3, $4, $5, $6) returning id;",
 		loan.Book.Identifier,
 		loan.Patron.Identifier,
 		loan.Lent,
 		loan.DueBack,
 		loan.Returned,
-	)
+	).Scan(&id)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Exec failed: %v\n", err)
 		os.Exit(1)
 	}
+	loan.Identifier = id
 }
 
 func LoadLoans(pool *pgxpool.Pool, dataFile string) {
@@ -75,12 +76,12 @@ func LoansByPatron(pool *pgxpool.Pool, patronId string) []models.Loan {
 }
 
 func scanLoan(row pgx.Row) models.Loan {
-	var id string
+	var id int
 	var lent string
 	var dueBack string
 	var returned string
 
-	var bookId string
+	var bookId int
 	var title string
 	var author string
 	var isbn string
@@ -91,7 +92,7 @@ func scanLoan(row pgx.Row) models.Loan {
 	var location string
 	var format string
 
-	var patronId string
+	var patronId int
 	var card string
 	var name string
 	var dob string
