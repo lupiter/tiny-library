@@ -9,19 +9,19 @@ import (
 	"os"
 )
 
-const bookColumns = "id, title, author, isbn, year, publisher, tags, max_loan_days, location, format"
+const bookColumns = "title, author, isbn, year, publisher, tags, max_loan_days, location, format"
 
 func BookById(pool *pgxpool.Pool, bookId string) models.Book {
-	row := pool.QueryRow(context.Background(), "SELECT "+bookColumns+" FROM books WHERE id=$1;", bookId)
+	row := pool.QueryRow(context.Background(), "SELECT id, "+bookColumns+" FROM books WHERE id=$1;", bookId)
 	book := scanBook(row)
 	return book
 }
 
-func AddBook(pool *pgxpool.Pool, book models.Book) {
-	_, err := pool.Exec(
+func AddBook(pool *pgxpool.Pool, book models.Book) models.Book {
+	var id string
+	err := pool.QueryRow(
 		context.Background(),
-		"INSERT INTO books ("+bookColumns+") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
-		book.Identifier,
+		"INSERT INTO books ("+bookColumns+") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id;",
 		book.Title,
 		book.Author,
 		book.ISBN,
@@ -31,11 +31,13 @@ func AddBook(pool *pgxpool.Pool, book models.Book) {
 		book.MaxLoanDays,
 		book.Location,
 		book.Format,
-	)
+	).Scan(&id)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Exec failed: %v\n", err)
 		os.Exit(1)
 	}
+	book.Identifier = id
+	return book
 }
 
 func scanBook(row pgx.Row) models.Book {
@@ -67,7 +69,7 @@ func scanBook(row pgx.Row) models.Book {
 
 func AllBooks(pool *pgxpool.Pool) []models.Book {
 	var books []models.Book
-	rows, err := pool.Query(context.Background(), "SELECT id, title, author, isbn, year, publisher, tags, max_loan_days, location, format FROM books;")
+	rows, err := pool.Query(context.Background(), "SELECT id, "+bookColumns+" FROM books;")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Query failed: %v\n", err)
 		os.Exit(1)

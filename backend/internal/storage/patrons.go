@@ -9,8 +9,10 @@ import (
 	"os"
 )
 
+const patronColumns = "card_number, name, dob, address, active, max_loan_days"
+
 func PatronById(pool *pgxpool.Pool, patronId string) models.Patron {
-	row := pool.QueryRow(context.Background(), "SELECT id, card_number, name, dob, address, active, max_loan_days FROM patrons WHERE id=$1;", patronId)
+	row := pool.QueryRow(context.Background(), "SELECT id, "+patronColumns+" FROM patrons WHERE id=$1;", patronId)
 	patron := scanPatron(row)
 	return patron
 }
@@ -36,9 +38,30 @@ func scanPatron(row pgx.Row) models.Patron {
 	return patron
 }
 
+func AddPatron(pool *pgxpool.Pool, patron models.Patron) models.Patron {
+	var id string
+	err := pool.QueryRow(
+		context.Background(),
+		"INSERT INTO patrons ("+patronColumns+") VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
+		patron.Identifier,
+		patron.CardNumber,
+		patron.Name,
+		patron.DateOfBirth,
+		patron.Address,
+		patron.Active,
+		patron.MaxLoanDays,
+	).Scan(&id)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Exec failed: %v\n", err)
+		os.Exit(1)
+	}
+	patron.Identifier = id
+	return patron
+}
+
 func AllPatrons(pool *pgxpool.Pool) []models.Patron {
 	var patrons []models.Patron
-	rows, err := pool.Query(context.Background(), "SELECT id, card_number, name, dob, address, active, max_loan_days FROM patrons;")
+	rows, err := pool.Query(context.Background(), "SELECT id, "+patronColumns+" FROM patrons;")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Query failed: %v\n", err)
 		os.Exit(1)

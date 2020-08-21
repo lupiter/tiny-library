@@ -22,6 +22,23 @@ func LoanById(pool *pgxpool.Pool, loanId string) models.Loan {
 	return loan
 }
 
+func AddLoan(pool *pgxpool.Pool, loan models.Loan) {
+	_, err := pool.Exec(
+		context.Background(),
+		"INSERT INTO loans (id, book, patron, lent, due_back, returned) VALUES ($1, $2, $3, $4, $5, $6);",
+		loan.Identifier,
+		loan.Book.Identifier,
+		loan.Patron.Identifier,
+		loan.Lent,
+		loan.DueBack,
+		loan.Returned,
+	)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Exec failed: %v\n", err)
+		os.Exit(1)
+	}
+}
+
 func LoansByPatron(pool *pgxpool.Pool, patronId string) []models.Loan {
 	var loans []models.Loan
 	rows, err := pool.Query(context.Background(), loanSelect+" WHERE patron=$1 AND loans.patron = patrons.id AND loans.book = books.id;", patronId)
