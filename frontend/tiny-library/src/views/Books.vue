@@ -1,6 +1,5 @@
 <template>
   <div class="books">
-    <h1>Catalogue</h1>
     <table class="table">
         <thead>
             <tr>

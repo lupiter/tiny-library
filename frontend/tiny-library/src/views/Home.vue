@@ -1,7 +1,8 @@
 <template>
-  <div class="home">
-    <img alt="Tiny Library Logo" src="../assets/logo.png" />
-    <h1>Welcome to Tiny Library</h1>
+  <div class="home container">
+    <p>welcome to</p>
+    <h1>Tiny Library</h1>
+    <img alt="pile of books on a hand" class="giant-illustration container" src="../assets/book-background.jpg" />
   </div>
 </template>
 
@@ -13,7 +14,19 @@ export default defineComponent({
 });
 </script>
 <style scoped lang="scss">
+.giant-illustration {
+  position: absolute;
+  bottom: 0;
+  max-width: 100vw;
+  left: 0;
+  z-index: -100;
+}
+.logo {
+  width: 50px;
+}
 .home {
-  background-image: url("../assets/book-background.jpg");
+  min-height: 50vh;
+  // background-image: url("../assets/book-background.jpg");
+  background-size: cover;
 }
 </style>
