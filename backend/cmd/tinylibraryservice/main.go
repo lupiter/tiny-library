@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
-	"github.com/lupiter/tiny-library/backend/internal/controllers"
-	"github.com/lupiter/tiny-library/backend/internal/storage"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/gorilla/mux"
+	"github.com/lupiter/tiny-library/backend/internal/controllers"
+	"github.com/lupiter/tiny-library/backend/internal/storage"
 )
 
 func main() {
@@ -20,7 +21,7 @@ func main() {
 	storage.LoadLoans(pool, os.Getenv("DATA_LOANS"))
 
 	r := mux.NewRouter()
-	s.AddRoutes(r)
-	http.Handle("/", r)
+	s.AddRoutes(r, "")
+	http.Handle("/api/v0", r)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { Book, Patron, Loan } from '@/models/library';
+import { Book, Patron, Loan } from "@/models/library";
 
 export default createStore({
   state: {
@@ -8,14 +8,14 @@ export default createStore({
     loans: [] as Loan[]
   },
   getters: {
-    bookById: (state) => (id: number): Book | undefined => {
-      return state.books.find((x: Book): boolean => x.id == id)
+    bookById: state => (id: number): Book | undefined => {
+      return state.books.find((x: Book): boolean => x.id == id);
     },
-    loanById: (state) => (id: number): Loan | undefined => {
-      return state.loans.find((x: Loan): boolean => x.id == id)
+    loanById: state => (id: number): Loan | undefined => {
+      return state.loans.find((x: Loan): boolean => x.id == id);
     },
-    patronById: (state) => (id: number): Patron | undefined => {
-      return state.patrons.find((x: Patron): boolean => x.id == id)
+    patronById: state => (id: number): Patron | undefined => {
+      return state.patrons.find((x: Patron): boolean => x.id == id);
     }
   },
   mutations: {
@@ -33,22 +33,26 @@ export default createStore({
     fetchAllBooks({ commit }) {
       fetch(`${window.location.protocol}//${window.location.hostname}/v0/books`)
         .then(response => response.json())
-        .then(data => commit('setBooks', data));
+        .then(data => commit("setBooks", data));
     },
     fetchAllPatrons({ commit }) {
-      fetch(`${window.location.protocol}//${window.location.hostname}/v0/people`)
+      fetch(
+        `${window.location.protocol}//${window.location.hostname}/v0/people`
+      )
         .then(response => response.json())
-        .then(data => commit('setPatrons', data));
+        .then(data => commit("setPatrons", data));
     },
     fetchAllLoans({ commit }) {
       fetch(`${window.location.protocol}//${window.location.hostname}/v0/loans`)
         .then(response => response.json())
-        .then(data => commit('setLoans', data));
+        .then(data => commit("setLoans", data));
     },
     fetchLoansByPatron({ commit }, patronId: number) {
-      fetch(`${window.location.protocol}//${window.location.hostname}/v0/people/${patronId}/loans`)
+      fetch(
+        `${window.location.protocol}//${window.location.hostname}/v0/people/${patronId}/loans`
+      )
         .then(response => response.json())
-        .then(data => commit('setLoans', data));
+        .then(data => commit("setLoans", data));
     }
   },
   modules: {}
