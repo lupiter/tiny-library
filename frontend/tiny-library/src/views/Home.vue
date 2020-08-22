@@ -1,12 +1,18 @@
 <template>
   <div class="home container">
-    <p>welcome to</p>
-    <h1>Tiny Library</h1>
-    <img
-      alt="pile of books on a hand"
-      class="giant-illustration container"
-      src="../assets/book-background.jpg"
-    />
+    <div class="row">
+      <p class="col">welcome to</p>
+    </div>
+    <div class="row">
+      <h1 class="col">Tiny Library</h1>
+    </div>
+    <div class="row">
+      <img
+        alt="pile of books on a hand"
+        class="giant-illustration container"
+        src="../assets/book-background.jpg"
+      />
+    </div>
   </div>
 </template>
 
@@ -28,5 +34,10 @@ export default defineComponent({
 .home {
   min-height: 50vh;
   background-size: cover;
+  p,
+  h1 {
+    margin: 2rem;
+    text-align: center;
+  }
 }
 </style>

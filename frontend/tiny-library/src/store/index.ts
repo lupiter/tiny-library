@@ -1,6 +1,11 @@
 import { createStore } from "vuex";
 import { Book, Patron, Loan } from "@/models/library";
 
+// For debuggin with a local backend
+const host = `http://localhost:8080`;
+// For prod
+// const host = `${window.location.protocol}//${window.location.hostname}`;
+
 export default createStore({
   state: {
     books: [] as Book[],
@@ -27,30 +32,35 @@ export default createStore({
     },
     setLoans(state, loans: Loan[]) {
       state.loans = loans;
+    },
+    clearAllBooks(state) {
+      state.books = [];
+    },
+    clearAllPatrons(state) {
+      state.patrons = [];
+    },
+    clearAllLoans(state) {
+      state.loans = [];
     }
   },
   actions: {
     fetchAllBooks({ commit }) {
-      fetch(`${window.location.protocol}//${window.location.hostname}/v0/books`)
+      fetch(`${host}/api/v0/books`)
         .then(response => response.json())
         .then(data => commit("setBooks", data));
     },
     fetchAllPatrons({ commit }) {
-      fetch(
-        `${window.location.protocol}//${window.location.hostname}/v0/people`
-      )
+      fetch(`${host}/api/v0/people`)
         .then(response => response.json())
         .then(data => commit("setPatrons", data));
     },
     fetchAllLoans({ commit }) {
-      fetch(`${window.location.protocol}//${window.location.hostname}/v0/loans`)
+      fetch(`${host}/api/v0/loans`)
         .then(response => response.json())
         .then(data => commit("setLoans", data));
     },
     fetchLoansByPatron({ commit }, patronId: number) {
-      fetch(
-        `${window.location.protocol}//${window.location.hostname}/v0/people/${patronId}/loans`
-      )
+      fetch(`${host}/api/v0/people/${patronId}/loans`)
         .then(response => response.json())
         .then(data => commit("setLoans", data));
     }

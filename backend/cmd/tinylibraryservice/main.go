@@ -21,7 +21,7 @@ func main() {
 	storage.LoadLoans(pool, os.Getenv("DATA_LOANS"))
 
 	r := mux.NewRouter()
-	s.AddRoutes(r, "")
-	http.Handle("/api/v0", r)
+	s.AddRoutes(r, "/api/v0")
+	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
