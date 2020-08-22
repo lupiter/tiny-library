@@ -36,7 +36,7 @@ jobs:
         cd backend
         go build -v all
 
-    - name: Test
-      run: |
-        cd backend
-        go test -v all
+#     - name: Test
+#       run: |
+#         cd backend
+#         go test -v all
