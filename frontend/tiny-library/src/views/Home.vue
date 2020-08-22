@@ -2,7 +2,11 @@
   <div class="home container">
     <p>welcome to</p>
     <h1>Tiny Library</h1>
-    <img alt="pile of books on a hand" class="giant-illustration container" src="../assets/book-background.jpg" />
+    <img
+      alt="pile of books on a hand"
+      class="giant-illustration container"
+      src="../assets/book-background.jpg"
+    />
   </div>
 </template>
 
@@ -21,12 +25,8 @@ export default defineComponent({
   left: 0;
   z-index: -100;
 }
-.logo {
-  width: 50px;
-}
 .home {
   min-height: 50vh;
-  // background-image: url("../assets/book-background.jpg");
   background-size: cover;
 }
 </style>

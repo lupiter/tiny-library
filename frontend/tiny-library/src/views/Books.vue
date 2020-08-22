@@ -3,15 +3,15 @@
     <table class="table">
       <thead>
         <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Author</th>
-        <th scope="col">Year</th>
-        <th scope="col">Format</th>
-        <th scope="col">Location</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Year</th>
+          <th scope="col">Format</th>
+          <th scope="col">Location</th>
         </tr>
       </thead>
       <tbody v-for="book in books" :key="book.id">
-        <Book id="book.id"/>
+        <Book id="book.id" />
       </tbody>
     </table>
   </div>
@@ -24,14 +24,13 @@ import { mapState, mapActions } from "vuex";
 
 export default defineComponent({
   name: "Books",
-  computed: mapState([
-    'books'
-  ]),
+  computed: mapState(["books"]),
   components: {
     Book
   },
-  methods: mapActions([
-      'fetchAllBooks'
-  ])
+  methods: mapActions(["fetchAllBooks"]),
+  mounted() {
+    this.fetchAllBooks();
+  }
 });
 </script>

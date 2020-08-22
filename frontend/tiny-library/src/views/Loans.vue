@@ -29,6 +29,9 @@ export default defineComponent({
   components: {
     Loan
   },
-  methods: mapActions(["fetchAllLoans"])
+  methods: mapActions(["fetchAllLoans"]),
+  mounted() {
+    this.fetchAllLoans();
+  }
 });
 </script>
