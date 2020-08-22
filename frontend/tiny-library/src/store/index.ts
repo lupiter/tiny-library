@@ -31,22 +31,22 @@ export default createStore({
   },
   actions: {
     fetchAllBooks({ commit }) {
-      fetch(`${window.location}/v0/books`)
+      fetch(`${window.location.protocol}//${window.location.hostname}/v0/books`)
         .then(response => response.json())
         .then(data => commit('setBooks', data));
     },
     fetchAllPatrons({ commit }) {
-      fetch(`${window.location}/v0/people`)
+      fetch(`${window.location.protocol}//${window.location.hostname}/v0/people`)
         .then(response => response.json())
         .then(data => commit('setPatrons', data));
     },
     fetchAllLoans({ commit }) {
-      fetch(`${window.location}/v0/loans`)
+      fetch(`${window.location.protocol}//${window.location.hostname}/v0/loans`)
         .then(response => response.json())
         .then(data => commit('setLoans', data));
     },
     fetchLoansByPatron({ commit }, patronId: number) {
-      fetch(`${window.location}/v0/people/${patronId}/loans`)
+      fetch(`${window.location.protocol}//${window.location.hostname}/v0/people/${patronId}/loans`)
         .then(response => response.json())
         .then(data => commit('setLoans', data));
     }
