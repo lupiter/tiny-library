@@ -28,7 +28,7 @@ func AddLoan(pool *pgxpool.Pool, loan models.Loan) {
 	var id int
 	err := pool.QueryRow(
 		context.Background(),
-		"INSERT INTO loans (book, patron, lent, due_back, returned) VALUES ($1, $2, $3, $4, $5, $6) returning id;",
+		"INSERT INTO loans (book, patron, lent, due_back, returned) VALUES ($1, $2, $3, $4, $5) returning id;",
 		loan.Book.Identifier,
 		loan.Patron.Identifier,
 		loan.Lent,
@@ -36,7 +36,7 @@ func AddLoan(pool *pgxpool.Pool, loan models.Loan) {
 		loan.Returned,
 	).Scan(&id)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Exec failed: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Exec failed: %v\n loan %v\n", err, loan)
 		os.Exit(1)
 	}
 	loan.Identifier = id

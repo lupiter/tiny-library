@@ -7,8 +7,8 @@ type Book struct {
 	Year        string
 	Publisher   string
 	Tags        []string
-	Identifier  int
-	MaxLoanDays int
+	Identifier  int `json:"id"`
+	MaxLoanDays int `json:"max_loan_days"`
 	Location    string
 	Format      string
 }

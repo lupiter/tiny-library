@@ -1,10 +1,10 @@
 package models
 
 type Loan struct {
-	Identifier int
-	Book       Book
-	Patron     Patron
+	Identifier int `json:"id"`
+	Book       Book `json:"book"`
+	Patron     Patron `json:"patron"`
 	Lent       string
-	DueBack    string // Lent + Patron's borrowing period or book's borrowing period whichever is shorter, here for convenience
+	DueBack    string `json:"due_back"` // Lent + Patron's borrowing period or book's borrowing period whichever is shorter, here for convenience
 	Returned   string
 }
