@@ -1,27 +1,28 @@
 <template>
   <tr>
-    <th scope="row">{{ book.title }}</th>
-    <td>{{ book.author }}</td>
-    <td>{{ book.year }}</td>
-    <td>{{ book.format }}</td>
-    <td>{{ book.location }}</td>
+    <th scope="row">{{ bookById(id).title }}</th>
+    <td>{{ bookById(id).author }}</td>
+    <td>{{ bookById(id).year }}</td>
+    <td>{{ bookById(id).format }}</td>
+    <td>{{ bookById(id).location }}</td>
   </tr>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+// import { Book } from "@/models/library";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "Book",
-  data() {
-    return {
-      book: {
-        author: ""
-      }
-    };
+  computed: {
+    ...mapGetters([
+      'bookById'
+      // ...
+    ])
   },
   props: {
-    id: String
+    id: Number
   }
 });
 </script>
