@@ -4,7 +4,10 @@
       <p class="col">welcome to</p>
     </div>
     <div class="row">
-      <h1 class="col">Tiny Library</h1>
+      <h1 class="col brand">
+        <img src="../assets/logo.png" class="d-inline-block align-top" alt="">
+        Tiny Library
+      </h1>
     </div>
     <div class="row">
       <img
@@ -24,13 +27,6 @@ export default defineComponent({
 });
 </script>
 <style scoped lang="scss">
-.giant-illustration {
-  position: absolute;
-  bottom: 0;
-  max-width: 100vw;
-  left: 0;
-  z-index: -100;
-}
 .home {
   min-height: 50vh;
   background-size: cover;

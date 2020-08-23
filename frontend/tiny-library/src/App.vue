@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <nav id="nav" class="navbar navbar-expand-sm navbar-light bg-light">
-      <router-link to="/" class="navbar-brand">Tiny Library</router-link>
+      <router-link to="/" class="navbar-brand brand">
+        <img src="./assets/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Tiny Library
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -30,5 +33,21 @@
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  .brand {
+    color: #4B40E0;
+  }
+  .giant-illustration {
+    position: absolute;
+    opacity: 0.5;
+    bottom: 0;
+    max-width: 100vw;
+    left: 0;
+    z-index: -100;
+  }
+  h1.brand {
+    img {
+      height: 3rem;
+    }
+  }
 }
 </style>
