@@ -10,7 +10,7 @@ const book = new ModelBook(
   "Juggles the Clown",
   "",
   "1991",
-  "",
+  "Very Nice Books Inc",
   [],
   identifier,
   0,
@@ -24,12 +24,12 @@ const store = createStore({
     };
   },
   getters: {
-    bookById: _ => (_: number): ModelBook | undefined => book
+    bookById: () => (): ModelBook | undefined => book
   }
 });
 
 describe("Book.vue", () => {
-  it("renders book when passed id", () => {
+  it("renders book", () => {
     const wrapper = shallowMount(Book, {
       props: { identifier },
       global: {
@@ -41,5 +41,6 @@ describe("Book.vue", () => {
     expect(wrapper.text()).to.include(book.year);
     expect(wrapper.text()).to.include(book.format);
     expect(wrapper.text()).to.include(book.location);
+    expect(wrapper.text()).to.not.include(book.publisher);
   });
 });
