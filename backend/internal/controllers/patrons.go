@@ -27,6 +27,7 @@ func (s *Storage) onePatron(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Write(js)
 }
 
@@ -39,6 +40,7 @@ func (s *Storage) listPatrons(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Write(js)
 }
 
@@ -53,5 +55,6 @@ func (s *Storage) loansForPatron(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Write(js)
 }
