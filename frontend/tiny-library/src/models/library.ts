@@ -1,17 +1,16 @@
-
 export class Book {
   constructor(
-    public title: string, 
-    public author: string, 
-    public isbn: string, 
-    public year: string, 
-    public publisher: string, 
-    public tags: string[], 
-    public id: number, 
-    public max_loan_days: number, 
-    public location: string, 
-    public format: string) {
-  }
+    public title: string,
+    public author: string,
+    public isbn: string,
+    public year: string,
+    public publisher: string,
+    public tags: string[],
+    public id: number,
+    public max_loan_days: number,
+    public location: string,
+    public format: string
+  ) {}
 }
 
 export class Patron {
@@ -33,6 +32,6 @@ export class Loan {
     public patron: Patron,
     public lent: string,
     public due_back: string,
-    public returned: string
-  ){}
+    public returned: string | undefined
+  ) {}
 }
