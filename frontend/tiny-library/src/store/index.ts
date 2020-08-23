@@ -2,9 +2,9 @@ import { createStore } from "vuex";
 import { Book, Patron, Loan } from "@/models/library";
 
 // For debuggin with a local backend
-const host = `http://localhost:8080`;
+// const host = `http://localhost:8080`;
 // For prod
-// const host = `${window.location.protocol}//${window.location.hostname}`;
+const host = `${window.location.protocol}//${window.location.hostname}`;
 
 export default createStore({
   state: {
