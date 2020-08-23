@@ -1,7 +1,7 @@
 <template>
   <div class="about container">
     <div class="row">
-    <h1 class="col">Tiny Library</h1>
+      <h1 class="col">Tiny Library</h1>
     </div>
     <p class="row">
       <a href="https://github.com/lupiter/tiny-library">Github</a>

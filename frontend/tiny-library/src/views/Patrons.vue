@@ -1,21 +1,9 @@
 <template>
   <div class="patrons container-fluid">
-    <div class="row">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Card Number</th>
-            <th scope="col">Lending Period</th>
-            <th scope="col">Active</th>
-            <th scope="col">Address</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody v-for="patron in patrons" :key="patron.id">
-          <Patron :identifier="patron.id" />
-        </tbody>
-      </table>
+    <div class="row row-cols-1 row-cols-md-2">
+      <div v-for="patron in patrons" :key="patron.id" class="col mb-4">
+        <Patron :identifier="patron.id" />
+      </div>
     </div>
   </div>
 </template>
@@ -43,3 +31,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped lang="scss">
+.patrons {
+  margin-top: 1rem;
+}
+</style>

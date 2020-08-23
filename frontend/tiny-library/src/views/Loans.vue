@@ -10,10 +10,11 @@
             <th scope="col">Out</th>
             <th scope="col">Expected</th>
             <th scope="col">Back</th>
+            <th scope="col">Overdue</th>
           </tr>
         </thead>
         <tbody v-for="loan in loans" :key="loan.id">
-          <Loan :identifier="loan.id" />
+          <Loan :identifier="loan.id" :showPatron="true" />
         </tbody>
       </table>
     </div>

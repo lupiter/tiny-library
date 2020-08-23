@@ -8,7 +8,7 @@ export class Book {
     public publisher: string, 
     public tags: string[], 
     public id: number, 
-    public maxLoanDays: number, 
+    public max_loan_days: number, 
     public location: string, 
     public format: string) {
   }
@@ -18,11 +18,11 @@ export class Patron {
   constructor(
     public name: string,
     public id: number,
-    public cardNumber: string,
-    public dateOfBirth: string,
+    public card_number: string,
+    public date_of_birth: string,
     public address: string,
     public active: boolean,
-    public maxLoanDays: number
+    public max_loan_days: number
   ) {}
 }
 
@@ -32,7 +32,7 @@ export class Loan {
     public book: Book,
     public patron: Patron,
     public lent: string,
-    public dueBack: string,
+    public due_back: string,
     public returned: string
   ){}
 }

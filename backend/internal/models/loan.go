@@ -6,5 +6,5 @@ type Loan struct {
 	Patron     Patron `json:"patron"`
 	Lent       string `json:"lent"`
 	DueBack    string `json:"due_back"` // Lent + Patron's borrowing period or book's borrowing period whichever is shorter, here for convenience
-	Returned   string `jons:"returned"`
+	Returned   string `json:"returned"`
 }

@@ -14,13 +14,16 @@ export default createStore({
   },
   getters: {
     bookById: state => (id: number): Book | undefined => {
-      return state.books.find((x: Book): boolean => x.id == id);
+      return state.books.find((x: Book): boolean => x.id === id);
     },
     loanById: state => (id: number): Loan | undefined => {
-      return state.loans.find((x: Loan): boolean => x.id == id);
+      return state.loans.find((x: Loan): boolean => x.id === id);
     },
     patronById: state => (id: number): Patron | undefined => {
-      return state.patrons.find((x: Patron): boolean => x.id == id);
+      return state.patrons.find((x: Patron): boolean => x.id === id);
+    },
+    loansByPatronId: state => (id: number): Loan[] => {
+      return state.loans.filter((x: Loan): boolean => x.patron.id === id);
     }
   },
   mutations: {
@@ -33,6 +36,9 @@ export default createStore({
     setLoans(state, loans: Loan[]) {
       state.loans = loans;
     },
+    addLoans(state, loans: Loan[]) {
+      state.loans = [...state.loans, ...loans];
+    },
     clearAllBooks(state) {
       state.books = [];
     },
@@ -41,6 +47,11 @@ export default createStore({
     },
     clearAllLoans(state) {
       state.loans = [];
+    },
+    removeLoansByPatron(state, patronId: number) {
+      state.loans = state.loans.filter(
+        (x: Loan): boolean => x.patron.id !== patronId
+      );
     }
   },
   actions: {
@@ -62,7 +73,7 @@ export default createStore({
     fetchLoansByPatron({ commit }, patronId: number) {
       fetch(`${host}/api/v0/people/${patronId}/loans`)
         .then(response => response.json())
-        .then(data => commit("setLoans", data));
+        .then(data => commit("addLoans", data));
     }
   },
   modules: {}
