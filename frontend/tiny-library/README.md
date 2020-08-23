@@ -1,4 +1,4 @@
-# tiny-library
+# Tiny Library Frontend
 
 ## Project setup
 ```
