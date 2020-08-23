@@ -38,9 +38,5 @@ jobs:
       working-directory: ${{ env.working-directory }}
 
     - name: Format
-      run: go fmt all
+      run: test -z $(go fmt -l all)
       working-directory: ${{ env.working-directory }}
-
-#     - name: Test
-#       working-directory: ${{ env.working-directory }}
-#       run: go test -v all
