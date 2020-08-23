@@ -1,5 +1,6 @@
 import { expect } from "chai";
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, mount } from "@vue/test-utils";
+import { nextTick } from "vue";
 import Patron from "@/components/Patron.vue";
 import {
   Patron as ModelPatron,
@@ -39,19 +40,32 @@ const loan = new ModelLoan(
   undefined
 );
 const store = createStore({
-  state() {
-    return {
-      patrons: [patron]
-    };
+  state: {
+    patrons: [patron],
+    loans: [] as ModelLoan[]
   },
   getters: {
     patronById: () => (): ModelPatron | undefined => patron,
-    loansByPatronId: () => (): ModelLoan[] => [loan]
+    loansByPatronId: state => (): ModelLoan[] => state.loans,
+    loanById: () => (): ModelLoan | undefined => loan
+  },
+  mutations: {
+    removeLoansByPatron(state) {
+      state.loans = [];
+    },
+    addLoans(state, loans: ModelLoan[]) {
+      state.loans = [...state.loans, ...loans];
+    }
+  },
+  actions: {
+    fetchLoansByPatron({ commit }) {
+      commit("addLoans", [loan]);
+    }
   }
 });
 
-describe("Book.vue", () => {
-  it("renders book", () => {
+describe("Patron.vue", () => {
+  it("renders patron", () => {
     const wrapper = shallowMount(Patron, {
       props: { identifier },
       global: {
@@ -60,5 +74,18 @@ describe("Book.vue", () => {
     });
     expect(wrapper.text()).to.include(patron.name);
     expect(wrapper.text()).to.not.include(patron.date_of_birth);
+  });
+
+  it("responds to load loans button", async () => {
+    const wrapper = mount(Patron, {
+      props: { identifier },
+      global: {
+        plugins: [store]
+      }
+    });
+    expect(wrapper.text()).to.not.include(book.title);
+    wrapper.find("button").trigger("click");
+    await nextTick();
+    expect(wrapper.text()).to.include(book.title);
   });
 });
