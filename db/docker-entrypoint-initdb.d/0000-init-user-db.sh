@@ -5,7 +5,4 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     CREATE DATABASE tinylibrary;
     CREATE USER tinylibrary WITH PASSWORD 'password';
     GRANT ALL PRIVILEGES ON DATABASE tinylibrary to tinylibrary;
-    DROP TABLE books;
-    DROP TABLE patrons;
-    DROP TABLE loans;
 EOSQL

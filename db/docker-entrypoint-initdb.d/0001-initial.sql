@@ -1,4 +1,8 @@
 BEGIN;
+DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS patrons;
+DROP TABLE IF EXISTS loans;
+
 CREATE TABLE IF NOT EXISTS books (
   id serial primary key,
   title text,

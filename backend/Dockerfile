@@ -8,4 +8,4 @@ RUN go build -o tiny ./cmd/tinylibraryservice
 FROM alpine:latest
 COPY --from=build-stage /app /app
 EXPOSE 8080
-CMD ["./tiny"]
+CMD ["/app/tiny"]
