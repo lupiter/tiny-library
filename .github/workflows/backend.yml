@@ -37,6 +37,10 @@ jobs:
       run: go build -v all
       working-directory: ${{ env.working-directory }}
 
+    - name: Format
+      run: go fmt all
+      working-directory: ${{ env.working-directory }}
+
 #     - name: Test
 #       working-directory: ${{ env.working-directory }}
 #       run: go test -v all
