@@ -2,7 +2,11 @@
   <div class="about container">
     <div class="row">
       <h1 class="col brand">
-        <img src="../assets/logo.png" class="d-inline-block align-top" alt="">
+        <img
+          src="../assets/logo.png"
+          class="d-inline-block align-top"
+          alt="tiny library logo"
+        />
         Tiny Library
       </h1>
     </div>
