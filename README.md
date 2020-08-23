@@ -2,7 +2,9 @@
  
 ## Building
 
-You will need [Docker](https://www.docker.com/products/docker-desktop) to run this project. Once Docker is installed, simply run `docker-compose up` from this directory. The applicaiton will be available at http://localhost/library
+You will need [Docker](https://www.docker.com/products/docker-desktop) to run this project. Once Docker is installed, simply run `docker-compose up` from this directory. The applicaiton will be available at http://localhost/
+
+To stop, use ctrl-c. To wipe the database, run `docker-compose down --volumes`. After pulling or making changes locally, you will need to run `docker-compose build` to get the images updated.
 
 ## Building for Development
 

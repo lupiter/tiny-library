@@ -1,11 +1,9 @@
-FROM golang:1.14 as build-stage
+FROM golang:alpine
 WORKDIR /app
-COPY . .
+COPY go.mod go.sum ./
 RUN go mod download
 RUN go mod verify
+COPY . .
 RUN go build -o tiny ./cmd/tinylibraryservice
-
-FROM alpine:latest
-COPY --from=build-stage /app /app
 EXPOSE 8080
-CMD ["/app/tiny"]
+CMD ["./tiny"]
